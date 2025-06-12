@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Te Amo ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+      background: #fff0f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+
+    .text, .heart, .photo {
+      opacity: 0;
+      transition: all 1s ease;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+
+    img {
+      margin-top: 20px;
+      width: 250px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <button id="startBtn">Clique aqui</button>
+  <h1 class="text" id="message">Tinhamo ❤️</h1>
+  <canvas class="heart" id="heartCanvas" width="300" height="300"></canvas>
+  <img class="photo" id="photo" src="https://i.ibb.co/5gjxmLMM/Whats-App-Image-2025-06-12-at-13-34-18.jpg" alt="nós dois" />
+
+  <script>
+    const btn = document.getElementById("startBtn");
+    const msg = document.getElementById("message");
+    const canvas = document.getElementById("heartCanvas");
+    const ctx = canvas.getContext("2d");
+    const img = document.getElementById("photo");
+
+    btn.addEventListener("click", () => {
+      btn.style.display = "none";
+      msg.classList.add("show");
+
+      setTimeout(drawHeart, 1000);
+      setTimeout(() => img.classList.add("show"), 3000);
+    });
+
+    function drawHeart() {
+      canvas.classList.add("show");
+      let t = 0;
+      const interval = setInterval(() => {
+        if (t > 2 * Math.PI) {
+          clearInterval(interval);
+          return;
+        }
+        const x = 150 + 100 * Math.pow(Math.sin(t), 3);
+        const y = 150 - 100 * (0.8125 * Math.cos(t) - 0.3125 * Math.cos(2 * t) - 0.125 * Math.cos(3 * t) - 0.0625 * Math.cos(4 * t));
+        ctx.fillStyle = "#ff69b4";
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, 2 * Math.PI);
+        ctx.fill();
+        t += 0.05;
+      }, 30);
+    }
+  </script>
+</body>
+</html>
